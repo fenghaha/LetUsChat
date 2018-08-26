@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".UI.Activity.UserDetailActivity">
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="240dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/bg_hor" />
+    <RelativeLayout
+        android:id="@+id/toolbar_layout"
+        android:layout_width="match_parent"
+        android:layout_height="?actionBarSize">
+        <ImageView
+            android:id="@+id/iv_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp"
+            android:src="@drawable/ic_back" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@id/iv_back"
+            android:text="返回"
+            android:textColor="#fff"
+            android:textSize="15sp" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp">
+
+        <View
+            android:id="@+id/line"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginTop="240dp" />
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/iv_avatar"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:layout_alignParentLeft="true"
+            android:layout_marginTop="200dp"
+            android:src="@drawable/ic_avatar" />
+
+        <TextView
+            android:id="@+id/tv_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/line"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="10dp"
+            android:layout_toRightOf="@id/iv_avatar"
+            android:text="FengHaha"
+            android:textColor="#d7000000"
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/tv_info"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@id/tv_name"
+            android:layout_below="@id/tv_name"
+            android:text="男 0 岁 北京 东城"
+            android:textColor="#d05c5b5b"
+            android:textSize="13sp" />
+
+        <View
+            android:id="@+id/ind"
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:layout_below="@id/tv_info"
+            android:layout_marginBottom="15dp"
+            android:layout_marginTop="20dp"
+            android:background="#6cd4d0d0" />
+
+        <TextView
+            android:id="@+id/tv_1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/ind"
+            android:text="账号信息"
+            android:textSize="15sp" />
+
+        <TextView
+            android:id="@+id/tv_number"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@id/tv_1"
+            android:layout_marginLeft="20dp"
+            android:layout_toRightOf="@+id/tv_1"
+            android:text="1424136075"
+            android:textColor="#d7000000"
+            android:textSize="15sp" />
+
+        <View
+            android:id="@+id/ind2"
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:layout_below="@id/tv_number"
+            android:layout_marginBottom="15dp"
+            android:layout_marginTop="15dp"
+            android:background="#6cd4d0d0" />
+
+        <TextView
+            android:id="@+id/tv_2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@id/tv_1"
+            android:layout_below="@id/ind2"
+            android:text="个性签名" />
+
+        <TextView
+            android:id="@+id/tv_motto"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@id/tv_number"
+            android:layout_alignTop="@id/tv_2"
+            android:text="我活的好悲伤,在雨中听肖邦 "
+            android:textColor="#d7000000" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="2px"
+            android:layout_below="@id/tv_2"
+            android:layout_marginBottom="15dp"
+            android:layout_marginTop="15dp"
+            android:background="#6cd4d0d0" />
+
+    </RelativeLayout>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:layout_gravity="bottom"
+        android:background="#f4f4f4">
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_gravity="top"
+            android:background="#dfdfde" />
+        <RelativeLayout
+            android:id="@+id/layout_goto"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center">
+            <ImageView
+                android:id="@+id/iv_icon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_edit_02"/>
+            <TextView
+                android:id="@+id/tv_goto"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@id/iv_icon"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="10dp"
+                android:textSize="18sp"
+                android:text="编辑资料"
+                android:textColor="#08a7df"/>
+        </RelativeLayout>
+    </FrameLayout>
+</FrameLayout>

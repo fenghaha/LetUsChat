@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/navigation_message"
+        android:icon="@drawable/ic_message"
+        android:title="@string/home_message" />
+    <item
+        android:id="@+id/navigation_contacts"
+        android:icon="@drawable/ic_people"
+        android:title="@string/home_people" />
+    <item
+        android:id="@+id/navigation_community"
+        android:icon="@drawable/ic_community"
+        android:title="@string/home_community" />
+
+</menu>

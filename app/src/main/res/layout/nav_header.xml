@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    tools:ignore="RtlHardcoded"
+    android:layout_height="200dp"
+    android:background="@drawable/bg_nav"
+    android:padding="15dp">
+
+    <RelativeLayout
+        android:id="@+id/myself_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_centerVertical="true">
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/nav_header_avatar"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="5dp" />
+
+
+        <TextView
+            android:id="@+id/tv_nav_header_username"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@id/nav_header_avatar"
+            android:layout_toRightOf="@id/nav_header_avatar"
+            android:layout_marginLeft="10dp"
+            android:maxLines="1"
+            android:textColor="#fff"
+            android:textSize="22sp" />
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/tv_nav_header_motto"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="#fff"
+        android:layout_below="@+id/myself_layout"
+        android:layout_marginTop="20dp"
+        android:drawableRight="@drawable/ic_edit"
+        android:textSize="14sp"
+        android:ellipsize="end"
+        android:maxLines="2"
+        android:text="编辑个性签名"/>
+
+
+</RelativeLayout>
