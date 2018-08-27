@@ -30,7 +30,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import de.hdodenhof.circleimageview.CircleImageView;
 
-public class UserInfoEditActivity extends AppCompatActivity {
+public class UserInfoEditActivity extends BaseActivity {
 
     @BindView(R.id.iv_back)
     ImageView ivBack;
@@ -59,36 +59,9 @@ public class UserInfoEditActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_info_edit);
         ButterKnife.bind(this);
-        TextWatcher watcher = new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                if (charSequence.length() > 0) {
-                    tvFinish.setTextColor(Color.parseColor("#fff"));
-                    tvFinish.setClickable(true);
-                } else {
-                    tvFinish.setTextColor(Color.parseColor("#88d8f5"));
-                    tvFinish.setClickable(false);
-                }
-            }
-
-            @Override
-            public void afterTextChanged(Editable editable) {
-
-            }
-        };
-        etNickname.addTextChangedListener(watcher);
-        etAge.addTextChangedListener(watcher);
-        etGender.addTextChangedListener(watcher);
-        etJob.addTextChangedListener(watcher);
-        etMotto.addTextChangedListener(watcher);
-        tvFinish.setOnClickListener(v -> saveAll());
-        ivAvatar.setOnClickListener(v -> chooseAvatar());
+        initViews();
     }
+
 
     private void chooseAvatar() {
         PictureSelector.create(this)
@@ -172,5 +145,40 @@ public class UserInfoEditActivity extends AppCompatActivity {
 
     public static void actionStart(Context context) {
         context.startActivity(new Intent(context, UserInfoEditActivity.class));
+    }
+
+    @Override
+    protected void initViews() {
+        ImageLoader.loadImage(this, (String) AVUser.getCurrentUser().get("avatarUrl"),ivAvatar);
+        ivBack.setOnClickListener(v -> finish());
+        TextWatcher watcher = new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                if (charSequence.length() > 0) {
+                    tvFinish.setTextColor(Color.parseColor("#ffffff"));
+                    tvFinish.setClickable(true);
+                } else {
+                    tvFinish.setTextColor(Color.parseColor("#88d8f5"));
+                    tvFinish.setClickable(false);
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        };
+        etNickname.addTextChangedListener(watcher);
+        etAge.addTextChangedListener(watcher);
+        etGender.addTextChangedListener(watcher);
+        etJob.addTextChangedListener(watcher);
+        etMotto.addTextChangedListener(watcher);
+        tvFinish.setOnClickListener(v -> saveAll());
+        ivAvatar.setOnClickListener(v -> chooseAvatar());
     }
 }

@@ -15,7 +15,7 @@
             android:id="@+id/image_1"
             android:layout_width="18dp"
             android:layout_height="18dp"
-            android:src="@drawable/ic_avatar" />
+            android:src="@drawable/ic_group" />
 
         <TextView
             android:id="@+id/text_1"
@@ -38,7 +38,7 @@
             android:layout_width="18dp"
             android:layout_height="18dp"
             android:layout_marginTop="20dp"
-            android:src="@drawable/ic_avatar" />
+            android:src="@drawable/ic_friend" />
 
         <TextView
             android:id="@+id/text_2"

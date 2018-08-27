@@ -54,7 +54,7 @@ public class StatusRecAdapter extends RecyclerView.Adapter<StatusRecAdapter.View
         holder.authorName.setText((String) status.get("name"));
         holder.content.setText((String) status.get("text"));
         ImageLoader.loadImage(context, (String) status.get("image"), holder.image);
-       // ImageLoader.loadImage(context, (String) status.get("avatar"), holder.avatar);
+        ImageLoader.loadImage(context, (String) status.get("avatar"), holder.avatar);
     }
 
 
@@ -66,7 +66,7 @@ public class StatusRecAdapter extends RecyclerView.Adapter<StatusRecAdapter.View
     class ViewHolder extends RecyclerView.ViewHolder {
         TextView authorName;
         TextView content;
-        CircleImageView avatar;
+        ImageView avatar;
         ImageView image;
         TextView date;
 
@@ -77,7 +77,7 @@ public class StatusRecAdapter extends RecyclerView.Adapter<StatusRecAdapter.View
             content = itemView.findViewById(R.id.tv_content);
             date = itemView.findViewById(R.id.tv_date);
             image = itemView.findViewById(R.id.iv_image);
-            //avatar = itemView.findViewById(R.id.image_avatar);
+            avatar = itemView.findViewById(R.id.image_avatar);
         }
     }
 

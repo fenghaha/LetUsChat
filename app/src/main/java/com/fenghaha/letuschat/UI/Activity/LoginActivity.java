@@ -98,7 +98,7 @@ public class LoginActivity extends BaseActivity implements LoginContract.LoginVi
         float t = w / (float) mInputLayout.getMeasuredWidth();
         ObjectAnimator animator = ObjectAnimator.ofFloat(mInputLayout,
                 "scaleX", 1f, t);
-        set.setDuration(500);
+        set.setDuration(300);
         set.setInterpolator(new AccelerateDecelerateInterpolator());
         set.playTogether(animator);
         set.start();
@@ -109,7 +109,11 @@ public class LoginActivity extends BaseActivity implements LoginContract.LoginVi
                 layoutProgress.setVisibility(View.VISIBLE);
             }
         });
-        new Handler().postDelayed(() -> showToast("登录成功！"), 500);
+        new Handler().postDelayed(() -> {
+            showToast("登录成功！");
+            MainActivity.actionStart(this);
+            finish();
+        }, 200);
     }
 
     @Override
@@ -119,8 +123,6 @@ public class LoginActivity extends BaseActivity implements LoginContract.LoginVi
         etUsrPsw.setVisibility(View.INVISIBLE);
         inputAnimator(layoutProgress.getMeasuredWidth(), layoutProgress.getMeasuredHeight());
         progressBar.setProgress(100, false);
-        MainActivity.actionStart(this);
-        finish();
     }
 
     @Override

@@ -69,6 +69,7 @@ public class UserDetailActivity extends BaseActivity {
         mNumber.setText(mUser.getUsername());
         mMotto.setText((String) mUser.get("motto"));
         mBack.setOnClickListener(v -> finish());
+        mAvatar.setOnClickListener(v -> ShowPhotoActivity.actionStart(this, (String) AVUser.getCurrentUser().get("avatarUrl")));
 
         if (!isSelf) {
             if (!isFriend) showAddFriend();

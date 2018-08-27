@@ -94,6 +94,7 @@ public class MainActivity extends BaseActivity {
                 case R.id.navigation_community:
                     mTitle.setText("动态");
                     switchFragment(2);
+                    mMore.setOnClickListener(v -> PublishActivity.actionStart(this));
                     return true;
             }
             return false;

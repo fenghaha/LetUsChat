@@ -118,7 +118,7 @@ public class PublishActivity extends BaseActivity {
 //                        });
 //                        String url = file.getUrl();
                         AVStatus status = new AVStatus();
-                        status.put("name",AVUser.getCurrentUser().getUsername());
+                        status.put("name",AVUser.getCurrentUser().get("nickname"));
                         status.put("avatar", AVUser.getCurrentUser().get("avatarUrl"));
                         status.put("image", url);
                         status.put("text", etContent.getText().toString());
