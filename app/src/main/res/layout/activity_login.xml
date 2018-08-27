@@ -3,52 +3,28 @@
     android:id="@+id/wrapper_view"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#7adfb8"
+    android:background="@drawable/bg_login"
     tools:context=".UI.Activity.LoginActivity">
 
-    <RelativeLayout
-        android:id="@+id/main_title"
-        android:layout_width="match_parent"
-        android:layout_height="?actionBarSize"
-        android:padding="10dp">
-
-        <ImageView
-            android:id="@+id/iv_back"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:src="@drawable/ic_back" />
-
-        <TextView
-            android:id="@+id/tv_sign_up"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:text="Sign up"
-            android:textColor="#ffffff"
-            android:textSize="18sp" />
-    </RelativeLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/main_title"
-        android:layout_marginTop="15dp"
+        android:layout_marginTop="40dp"
         android:orientation="vertical">
 
         <ImageView
             android:layout_width="55dp"
             android:layout_height="55dp"
             android:layout_gravity="center_horizontal"
-            android:src="@drawable/project_detail_cir" />
+            android:src="@drawable/ic_icon" />
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
             android:gravity="center"
-            android:text="LET US CHAT"
+            android:text="畅聊"
             android:textColor="#ffffff"
             android:textSize="24sp" />
 
@@ -57,9 +33,9 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
             android:gravity="center"
-            android:text="CHAT WHAT YOU WANT"
-            android:textColor="#ffffff"
-            android:textSize="16sp" />
+            android:text="聊你所想   畅所欲言"
+            android:textColor="#fff"
+            android:textSize="15sp" />
     </LinearLayout>
 
     <LinearLayout
@@ -113,19 +89,6 @@
             android:layout_marginTop="5dp"
             android:background="#eeeeee" />
 
-        <EditText
-            android:id="@+id/et_usr_psw_repeat"
-            android:layout_width="match_parent"
-            android:visibility="gone"
-            android:layout_height="wrap_content"
-            android:background="#00000000"
-            android:drawableLeft="@drawable/paw_left"
-            android:drawablePadding="10dp"
-            android:hint=" 再次输入密码"
-            android:inputType="textPassword"
-            android:maxLines="1"
-            android:padding="5dp"
-            android:textSize="16sp" />
     </LinearLayout>
 
 
@@ -145,23 +108,23 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="35dp"
         android:background="@drawable/text_bg"
-        android:paddingBottom="4dp"
-        android:paddingLeft="20dp"
-        android:paddingRight="20dp"
-        android:paddingTop="4dp"
-        android:text="Login"
-        android:textColor="#ffffff"
+        android:paddingBottom="6dp"
+        android:paddingLeft="50dp"
+        android:paddingRight="50dp"
+        android:paddingTop="6dp"
+        android:text="登录"
+        android:textColor="@color/white"
         android:textSize="20sp" />
 
     <TextView
-        android:id="@+id/tv_find_psw"
+        android:id="@+id/tv_register"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/main_btn"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="25dp"
-        android:text="Forget Password?"
-        android:textColor="#ffffff"
+        android:text="还没账号? 点我注册"
+        android:textColor="#5090ff"
         android:textSize="15sp" />
 </RelativeLayout>
 

@@ -3,9 +3,8 @@
     >
 
     <corners android:radius="50dip"/>
+<solid
+    android:color="@color/colorBlue"/>
 
-    <stroke
-        android:width="1dip"
-        android:color="#ffffff" />
 
 </shape>

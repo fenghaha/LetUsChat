@@ -9,8 +9,6 @@ import com.avos.avoscloud.im.v2.AVIMMessage;
 import com.avos.avoscloud.im.v2.messages.AVIMTextMessage;
 import com.fenghaha.letuschat.R;
 
-import java.util.HashMap;
-
 
 /**
  * Created by FengHaHa on2018/8/23 0023 14:49
@@ -26,13 +24,10 @@ public class ChatTextViewHolder extends ChatBaseViewHolder {
     @Override
     public void initView() {
         super.initView();
-        if (isLeft) {
-            conventLayout.addView(View.inflate(getContext(), R.layout.item_chat_left_text_layout, null));
-            contentView = itemView.findViewById(R.id.chat_left_text_tv_content);
-        } else {
-            conventLayout.addView(View.inflate(getContext(), R.layout.item_chat_right_text_layout, null));
-            contentView = itemView.findViewById(R.id.chat_right_text_tv_content);
-        }
+        conventLayout.addView(View.inflate(getContext(), R.layout.item_chat_text_layout, null));
+        contentView = itemView.findViewById(R.id.chat_text_tv_content);
+        if (isLeft)contentView.setBackgroundResource(R.drawable.chat_left_bubble_nor);
+        else contentView.setBackgroundResource(R.drawable.chat_right_bubble_nor);
     }
     @Override
     public void bindData(Object o) {

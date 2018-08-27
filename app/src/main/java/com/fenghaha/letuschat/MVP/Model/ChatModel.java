@@ -7,6 +7,7 @@ import com.avos.avoscloud.im.v2.AVIMMessageManager;
 import com.avos.avoscloud.im.v2.callback.AVIMConversationCallback;
 import com.avos.avoscloud.im.v2.callback.AVIMConversationCreatedCallback;
 import com.avos.avoscloud.im.v2.callback.AVIMMessagesQueryCallback;
+import com.avos.avoscloud.im.v2.messages.AVIMImageMessage;
 import com.avos.avoscloud.im.v2.messages.AVIMTextMessage;
 import com.fenghaha.letuschat.MVP.Contract.BaseContract;
 import com.fenghaha.letuschat.MVP.Contract.ChatContract;
@@ -53,7 +54,7 @@ public class ChatModel {
                         if (e == null) {
                             isConversationCreated = true;
                             conversation = avimConversation;
-                            if (listener!=null)listener.onCreated();
+                            if (listener != null) listener.onCreated();
                         }
                     }
                 });
@@ -65,14 +66,18 @@ public class ChatModel {
             callBack.onFailure("请等待连接建立");
             return;
         }
-        AVIMTextMessage textMessage = (AVIMTextMessage) message;
-        conversation.set("lastMessage", textMessage.getText());
+        if (message instanceof AVIMTextMessage) {
+            AVIMTextMessage textMessage = (AVIMTextMessage) message;
+            conversation.set("lastMessage", textMessage.getText());
+        } else if (message instanceof AVIMImageMessage) {
+            conversation.set("lastMessage", "[图片]");
+        }
         conversation.updateInfoInBackground(new AVIMConversationCallback() {
             @Override
             public void done(AVIMException e) {
-
             }
         });
+
         conversation.sendMessage(message, new AVIMConversationCallback() {
             @Override
             public void done(AVIMException e) {
@@ -87,7 +92,7 @@ public class ChatModel {
 
 
     public void getMessageHistory(BaseContract.BaseCallBack<List<AVIMMessage>> callBack) {
-        if (!isConversationCreated){
+        if (!isConversationCreated) {
             callBack.onFailure("");
             return;
         }
@@ -99,6 +104,7 @@ public class ChatModel {
             }
         });
     }
+
     public interface ConversationCreateListener {
         void onCreated();
     }

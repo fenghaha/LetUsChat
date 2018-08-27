@@ -10,6 +10,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.avos.avoscloud.im.v2.AVIMMessage;
+import com.avos.avoscloud.im.v2.messages.AVIMImageMessage;
 import com.avos.avoscloud.im.v2.messages.AVIMTextMessage;
 import com.fenghaha.letuschat.MVP.Contract.ChatContract;
 import com.fenghaha.letuschat.MVP.Model.ChatModel;
@@ -18,7 +19,12 @@ import com.fenghaha.letuschat.R;
 import com.fenghaha.letuschat.UI.Adapter.Recycler.MessageRecAdapter;
 import com.fenghaha.letuschat.Utils.MyApp;
 import com.fenghaha.letuschat.Utils.MyTextUtil;
+import com.luck.picture.lib.PictureSelector;
+import com.luck.picture.lib.config.PictureConfig;
+import com.luck.picture.lib.config.PictureMimeType;
+import com.luck.picture.lib.entity.LocalMedia;
 
+import java.io.IOException;
 import java.util.List;
 
 import butterknife.BindView;
@@ -36,6 +42,14 @@ public class ChatActivity extends BaseActivity implements ChatContract.ChatView 
     ImageView mBack;
     @BindView(R.id.tv_toolbar_title)
     TextView mTitle;
+    @BindView(R.id.iv_voice)
+    ImageView ivVoice;
+    @BindView(R.id.iv_image)
+    ImageView ivImage;
+    @BindView(R.id.iv_video)
+    ImageView ivVideo;
+    @BindView(R.id.iv_camera)
+    ImageView ivCamera;
     private MessageRecAdapter mAdapter;
     private ChatPresenter mPresenter;
 
@@ -59,8 +73,13 @@ public class ChatActivity extends BaseActivity implements ChatContract.ChatView 
 
     @Override
     protected void initViews() {
-        mTitle.setText((String)MyApp.getAvUserHashMap().get(getIntent().getStringExtra("id")).get("nickname"));
-        mAdapter = new MessageRecAdapter();
+        mTitle.setText((String) MyApp.getAvUserHashMap().get(getIntent().getStringExtra("id")).get("nickname"));
+        mAdapter = new MessageRecAdapter(message -> {
+            if (message instanceof AVIMImageMessage){
+                ShowPhotoActivity.actionStart(this,((AVIMImageMessage) message).getFileUrl());
+            }
+
+        });
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         mRecyclerView.setAdapter(mAdapter);
         mSendBtn.setOnClickListener(v -> {
@@ -73,6 +92,50 @@ public class ChatActivity extends BaseActivity implements ChatContract.ChatView 
             }
         });
         mBack.setOnClickListener(v -> finish());
+        ivCamera.setOnClickListener(v -> PictureSelector.create(this)
+                .openCamera(PictureMimeType.ofImage())
+                .compress(true)
+                .forResult(PictureConfig.CHOOSE_REQUEST));
+        ivImage.setOnClickListener(v -> PictureSelector.create(this)
+                .openGallery(PictureMimeType.ofImage())
+                .maxSelectNum(1)
+                .imageSpanCount(3)
+                .isCamera(true)
+                .compress(true)
+                .minimumCompressSize(100)
+                .forResult(PictureConfig.CHOOSE_REQUEST));
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == RESULT_OK) {
+            switch (requestCode) {
+                case PictureConfig.CHOOSE_REQUEST:
+                    // 图片、视频、音频选择结果回调
+                    LocalMedia image = PictureSelector.obtainMultipleResult(data).get(0);
+                    String path;
+                    path = image.isCompressed() ? image.getCompressPath() : image.getPath();
+                    sendImage(path);
+                    // 例如 LocalMedia 里面返回三种path
+                    // 1.media.getPath(); 为原图path
+                    // 2.media.getCutPath();为裁剪后path，需判断media.isCut();是否为true  注意：音视频除外
+                    // 3.media.getCompressPath();为压缩后path，需判断media.isCompressed();是否为true  注意：音视频除外
+                    // 如果裁剪并压缩了，以取压缩路径为准，因为是先裁剪后压缩的
+
+                    break;
+            }
+        }
+    }
+
+    private void sendImage(String path) {
+        try {
+            AVIMImageMessage picture = new AVIMImageMessage(path);
+            mPresenter.sendMessage(picture);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
     }
 
     @Override

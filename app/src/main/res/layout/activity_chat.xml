@@ -53,7 +53,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:background="#FFF0F1F4"
         android:layout_margin="10dp">
 
         <RelativeLayout
@@ -73,6 +72,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:background="@null"
                     android:maxLines="6" />
 
                 <TextView
@@ -80,20 +80,60 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="bottom"
-                    android:layout_toRightOf="@id/et_input"
+                    android:layout_marginTop="5dp"
                     android:text="发送"
                     android:textColor="#5d96f9"
                     android:textSize="18sp" />
             </LinearLayout>
 
             <View
+                android:id="@+id/line"
                 android:layout_width="match_parent"
-                android:layout_height="2px"
+                android:layout_height="1px"
                 android:layout_below="@id/layout_input"
                 android:layout_marginBottom="10dp"
                 android:layout_marginTop="5dp"
-                android:background="#cecece"
+                android:background="#91b7b4b4"
                 tools:ignore="PxUsage" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="25dp"
+                android:layout_below="@+id/line"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:id="@+id/iv_voice"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:scaleType="fitCenter"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/ic_voice"/>
+
+                <ImageView
+                    android:id="@+id/iv_image"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:scaleType="fitCenter"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/ic_photo"/>
+
+                <ImageView
+                    android:id="@+id/iv_video"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:scaleType="fitCenter"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/ic_video"/>
+
+                <ImageView
+                    android:id="@+id/iv_camera"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:scaleType="fitCenter"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/ic_my_camera"/>
+            </LinearLayout>
         </RelativeLayout>
 
     </ScrollView>

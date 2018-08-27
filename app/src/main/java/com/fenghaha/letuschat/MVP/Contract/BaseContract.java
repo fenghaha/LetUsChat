@@ -1,6 +1,7 @@
 package com.fenghaha.letuschat.MVP.Contract;
 
 import android.content.Context;
+import android.util.Log;
 
 import com.fenghaha.letuschat.Utils.ToastUtil;
 
@@ -17,6 +18,7 @@ public class BaseContract {
     }
 
     public abstract static class BaseCallBack<T> {
+        private static final String TAG = "BaseCallBack";
         public void onSuccess(T data) {
         }
 
@@ -24,7 +26,7 @@ public class BaseContract {
         }
 
         public  void onFailure(String msg){
-            ToastUtil.makeToast(msg);
+            Log.d(TAG, "onFailure: "+msg);
         }
 
         public void onError(Throwable e) {

@@ -12,9 +12,11 @@ import android.widget.TextView;
 import com.avos.avoscloud.AVUser;
 import com.avos.avoscloud.im.v2.AVIMMessage;
 import com.fenghaha.letuschat.R;
+import com.fenghaha.letuschat.UI.Activity.UserDetailActivity;
 import com.fenghaha.letuschat.Utils.DateUtil;
 import com.fenghaha.letuschat.Utils.ImageLoader;
 import com.fenghaha.letuschat.Utils.MyApp;
+import com.fenghaha.letuschat.Utils.SimpleClickListener;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -25,7 +27,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 public class ChatBaseViewHolder extends BaseViewHolder {
     protected boolean isLeft;
     protected AVIMMessage message;
-
+    protected SimpleClickListener clickListener;
     protected CircleImageView avatarView;
     protected TextView timeView;
     protected TextView nameView;
@@ -33,12 +35,17 @@ public class ChatBaseViewHolder extends BaseViewHolder {
     protected FrameLayout statusLayout;
     protected ProgressBar progressBar;
     protected TextView statusView;
-    protected ImageView errorView = (ImageView) itemView.findViewById(R.id.chat_right_tv_error);
+    protected ImageView errorView;
 
     public ChatBaseViewHolder(Context context, ViewGroup root, boolean isLeft) {
         super(context, root, isLeft ? R.layout.item_chat_left_layout : R.layout.item_chat_right_layout);
         this.isLeft = isLeft;
         initView();
+    }
+
+    public ChatBaseViewHolder setClickListener(SimpleClickListener clickListener) {
+        this.clickListener = clickListener;
+        return this;
     }
 
     protected void initView() {
@@ -70,6 +77,10 @@ public class ChatBaseViewHolder extends BaseViewHolder {
     @Override
     public void bindData(Object o) {
         message = (AVIMMessage) o;
+        if (!avatarView.hasOnClickListeners()) {
+            avatarView.setOnClickListener(v -> UserDetailActivity.actionStart(getContext(), message.getFrom()));
+
+        }
         timeView.setText(DateUtil.millisecsToDateString(message.getTimestamp()));
         nameView.setText("");
         if (!isLeft) {

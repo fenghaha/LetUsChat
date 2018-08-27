@@ -27,7 +27,7 @@ import butterknife.BindView;
 /**
  * Created by FengHaHa on2018/8/22 0022 17:42
  */
-public class ConversationFrag extends BaseFragment implements ConversationContract.ConversationView{
+public class ConversationFrag extends BaseFragment implements ConversationContract.ConversationView {
     @BindView(R.id.rec_message)
     RecyclerView mRecyclerView;
     @BindView(R.id.swipe_layout)
@@ -53,7 +53,6 @@ public class ConversationFrag extends BaseFragment implements ConversationContra
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
-        mPresenter.registerMessageHandler();
         return mRootView;
     }
 
@@ -68,12 +67,13 @@ public class ConversationFrag extends BaseFragment implements ConversationContra
         mPresenter = new ConversationPresenter(new ConversationModel());
         mPresenter.attachView(this);
         mPresenter.requestConversation();
+        mPresenter.registerMessageHandler();
     }
 
     @Override
     public void initViews() {
         mRecyclerView.setLayoutManager(new LinearLayoutManager(mContext));
-        mAdapter  = new ConversationRecAdapter(mContext);
+        mAdapter = new ConversationRecAdapter(mContext);
         mRecyclerView.setAdapter(mAdapter);
         swipeLayout.setOnRefreshListener(() -> mPresenter.requestConversation());
     }

@@ -22,7 +22,7 @@ import android.widget.TextView;
 
 import com.avos.avoscloud.AVUser;
 import com.fenghaha.letuschat.R;
-import com.fenghaha.letuschat.UI.CustomView.CustomPopWindow;
+import com.fenghaha.letuschat.CustomView.CustomPopWindow;
 import com.fenghaha.letuschat.UI.Fragment.CommunityFrag;
 import com.fenghaha.letuschat.UI.Fragment.ContactsFrag;
 import com.fenghaha.letuschat.UI.Fragment.ConversationFrag;
@@ -103,7 +103,7 @@ public class MainActivity extends BaseActivity {
         TextView mMotto = view.findViewById(R.id.tv_nav_header_motto);
         AVUser myself = AVUser.getCurrentUser();
         View myView = view.findViewById(R.id.myself_layout);
-        myView.setOnClickListener(v->UserDetailActivity.actionStart(this,myself.getObjectId()));
+        myView.setOnClickListener(v -> UserDetailActivity.actionStart(this, myself.getObjectId()));
         String nickname = (String) myself.get("nickname");
         String motto = (String) myself.get("motto");
         if (nickname != null) mUsername.setText(nickname);

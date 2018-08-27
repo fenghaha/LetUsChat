@@ -24,34 +24,16 @@ public class LoginPresenter extends BasePresenter<LoginView> {
             mView.showToast("账号或者密码不合法！");
             return;
         }
-        mView.showLoading();
         mModel.login(usrName, psw, new BaseContract.BaseCallBack<AVUser>() {
             @Override
             public void onSuccess(AVUser data) {
+
                 mView.loginSuccess();
             }
 
             @Override
             public void onFailure(String msg) {
                 mView.showToast(msg);
-                mView.recovery();
-            }
-        });
-    }
-
-    public void signUp(String usrName, String psw, String psw2) {
-        if (MyTextUtil.isEmpty(usrName, psw)) {
-            mView.showToast("账号或者密码不合法！");
-            return;
-        }
-        if (!MyTextUtil.isEqual(psw, psw2)) {
-            mView.showToast("两次输入密码不一致！");
-            return;
-        }
-        mModel.signUp(usrName, psw, new BaseContract.BaseCallBack<AVUser>() {
-            @Override
-            public void onComplete() {
-                mView.signUpSuccess(usrName, psw);
             }
         });
     }

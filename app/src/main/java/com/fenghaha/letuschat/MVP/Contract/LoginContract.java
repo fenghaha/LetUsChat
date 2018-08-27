@@ -7,15 +7,9 @@ import com.avos.avoscloud.AVUser;
  */
 public class LoginContract extends BaseContract {
     public interface LoginView extends BaseView {
-        void showLoading();
 
         void loginSuccess();
 
-        void signUpSuccess(String usn, String psw);
 
-        void loginMode();
-
-        void signUpMode();
-        void  recovery();
     }
 }

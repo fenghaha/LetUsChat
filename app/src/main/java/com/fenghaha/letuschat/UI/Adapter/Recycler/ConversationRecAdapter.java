@@ -12,8 +12,10 @@ import com.avos.avoscloud.AVUser;
 import com.avos.avoscloud.im.v2.AVIMConversation;
 import com.avos.avoscloud.im.v2.AVIMMessage;
 import com.avos.avoscloud.im.v2.messages.AVIMTextMessage;
+import com.fenghaha.letuschat.MVP.Contract.BaseContract;
 import com.fenghaha.letuschat.R;
 import com.fenghaha.letuschat.UI.Activity.ChatActivity;
+import com.fenghaha.letuschat.Utils.ChatUtil;
 import com.fenghaha.letuschat.Utils.DateUtil;
 import com.fenghaha.letuschat.Utils.ImageLoader;
 import com.fenghaha.letuschat.Utils.MyApp;
@@ -53,15 +55,14 @@ public class ConversationRecAdapter extends RecyclerView.Adapter<ConversationRec
         AVIMConversation conversation = mConversations.get(i);
         AVUser user = mUserList.get(i);
         ImageLoader.loadImage(context, (String) user.get("avatarUrl"), holder.mAvatar);
-
         holder.tvStatus.setText((String) conversation.get("lastMessage"));
-
         holder.tvName.setText((String) user.get("nickname"));
         holder.time.setVisibility(View.VISIBLE);
         holder.time.setText(DateUtil.DateToString(conversation.getLastMessageAt()));
     }
 
     private void initData() {
+        mUserList.clear();
         for (AVIMConversation c : mConversations) {
             AVUser user = null;
             if (c.getCreator().equals(AVUser.getCurrentUser().getObjectId())) {
@@ -85,10 +86,53 @@ public class ConversationRecAdapter extends RecyclerView.Adapter<ConversationRec
                 AVIMTextMessage tm = (AVIMTextMessage) message;
                 c.set("lastMessage", tm.getText());
                 notifyItemChanged(i);
-                break;
+                return;
             }
         }
+        ChatUtil.getConversation(message.getConversationId(), new BaseContract.BaseCallBack<AVIMConversation>() {
+            @Override
+            public void onSuccess(AVIMConversation data) {
+                mConversations.add(0, data);
+                initData();
+                notifyDataSetChanged();
+            }
+        });
+
     }
+
+
+//    public void showMessage(AVIMMessage message) {
+//        for (int i = 0; i < mConversations.size(); i++) {
+//            AVIMConversation c = mConversations.get(i);
+//            if (message.getConversationId().equals(c.getConversationId())) {
+//                AVIMConversationsQuery query = MyApp.getCurrentClient().getConversationsQuery();
+//                query.setWithLastMessagesRefreshed(true);
+//                query.whereEqualTo("objectId",c.getConversationId());
+//                int finalI = i;
+//                query.findInBackground(new AVIMConversationQueryCallback(){
+//                    @Override
+//                    public void done(List<AVIMConversation> convs,AVIMException e){
+//                        if(e==null){
+//                            if(convs!=null && !convs.isEmpty()){
+//                              mConversations.set(finalI,convs.get(0));
+//                              notifyItemChanged(finalI);
+//                                //convs.get(0) 就是想要的conversation
+//                            }
+//                        }
+//                    }
+//                });
+//                return;
+//            }
+//        }
+//        ChatUtil.getConversation(message.getConversationId(), new BaseContract.BaseCallBack<AVIMConversation>() {
+//            @Override
+//            public void onSuccess(AVIMConversation data) {
+//                mConversations.add(0,data);
+//                initData();
+//                notifyDataSetChanged();
+//            }
+//        });
+//    }
 
     public void addConversationList(List<AVIMConversation> list) {
         mConversations.addAll(list);

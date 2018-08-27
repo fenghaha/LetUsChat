@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.TextInputEditText;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -14,7 +13,7 @@ import com.fenghaha.letuschat.MVP.Contract.BaseContract;
 import com.fenghaha.letuschat.R;
 import com.fenghaha.letuschat.Utils.MyApp;
 import com.fenghaha.letuschat.Utils.MyTextUtil;
-import com.fenghaha.letuschat.Utils.UserUtil;
+import com.fenghaha.letuschat.Utils.ChatUtil;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -67,7 +66,7 @@ public class AddFriendActivity extends BaseActivity implements View.OnClickListe
         if (MyTextUtil.isEmpty(inputTextNumber.getText().toString())){
             inputTextNumber.setError("输入不能为空！");
         }else {
-            UserUtil.findUser(inputTextNumber.getText().toString(), new BaseContract.BaseCallBack<AVUser>() {
+            ChatUtil.findUser(inputTextNumber.getText().toString(), new BaseContract.BaseCallBack<AVUser>() {
                 @Override
                 public void onSuccess(AVUser data) {
                     MyApp.getAvUserHashMap().put(data.getObjectId(),data);

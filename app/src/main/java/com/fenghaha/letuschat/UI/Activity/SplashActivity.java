@@ -11,7 +11,7 @@ import com.fenghaha.letuschat.MVP.Contract.BaseContract;
 import com.fenghaha.letuschat.R;
 import com.fenghaha.letuschat.Utils.MyApp;
 import com.fenghaha.letuschat.Utils.ToastUtil;
-import com.fenghaha.letuschat.Utils.UserUtil;
+import com.fenghaha.letuschat.Utils.ChatUtil;
 
 public class SplashActivity extends AppCompatActivity {
 
@@ -26,26 +26,23 @@ public class SplashActivity extends AppCompatActivity {
             LoginActivity.actionStart(SplashActivity.this);
             finish();
         } else {
-            MyApp.openIMClient();
-            UserUtil.getContactsList(new BaseContract.BaseCallBack() {
-                @Override
-                public void onFailure(String msg) {
-                    ToastUtil.makeToast(msg);
-                    LoginActivity.actionStart(SplashActivity.this);
-                    finish();
-                }
-                @Override
-                public void onComplete() {
-                    MainActivity.actionStart(SplashActivity.this);
-                    finish();
-                }
-            });
+            ChatUtil.init(this);
+//            MyApp.openIMClient();
+//            ChatUtil.getContactsList(new BaseContract.BaseCallBack() {
+//                @Override
+//                public void onFailure(String msg) {
+//                    ToastUtil.makeToast(msg);
+//                    LoginActivity.actionStart(SplashActivity.this);
+//                    finish();
+//                }
+//                @Override
+//                public void onComplete() {
+//                    MainActivity.actionStart(SplashActivity.this);
+//                    finish();
+//                }
+//            });
 
         }
 
-        new Handler().postDelayed(() -> {
-
-
-        }, 100);
     }
 }

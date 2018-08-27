@@ -1,8 +1,9 @@
 <resources>
-    <string name="app_name">LetUsChat</string>
+    <string name="app_name">畅聊</string>
     <string name="home_message">消息</string>
     <string name="home_people">联系人</string>
     <string name="home_community">动态</string>
+    <string name="psw_hint">密码由8–16位数字，字母，或者符号组成</string>
     <string name="title_activity_main2">Main2Activity</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>

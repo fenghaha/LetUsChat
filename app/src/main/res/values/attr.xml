@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <declare-styleable name="RedDot">
-        <attr name="circleColor" format="color"/>
-        <attr name="maxDragLength" format="dimension"/>
-        <attr name="minRate" format="float"/>
+    <declare-styleable name="RoundImageView">
+        <attr name="radius" format="dimension"/>
+
     </declare-styleable>
 </resources>

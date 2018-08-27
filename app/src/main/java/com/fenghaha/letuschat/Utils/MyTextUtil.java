@@ -2,10 +2,21 @@ package com.fenghaha.letuschat.Utils;
 
 import android.text.TextUtils;
 
+import java.util.Random;
+
 /**
  * Created by FengHaHa on2018/5/26 0026 0:46
  */
 public class MyTextUtil {
+    public static String newRandomAccount(){
+        StringBuilder builder = new StringBuilder();
+        Random random = new Random();
+        for (int i = 0; i < 6; i++) {
+            int k = random.nextInt(10);
+            builder.append(k);
+        }
+        return builder.toString();
+    }
     public static boolean isEqual(String s1, String s2) {
         return s1.equals(s2);
     }

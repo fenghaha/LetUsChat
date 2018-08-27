@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.othershe.library.NiceImageView android:id="@+id/chat_image_iv_content"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    app:radius="10dp"
+    android:scaleType="fitXY"
+    android:layout_width="170dp"
+    android:layout_height="wrap_content"
+    app:corner_radius="10dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto" />

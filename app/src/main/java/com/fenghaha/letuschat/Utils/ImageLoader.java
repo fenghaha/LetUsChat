@@ -9,6 +9,8 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.RequestOptions;
 import com.fenghaha.letuschat.R;
 
+import java.io.File;
+
 /**
  * Created by FengHaHa on2018/8/18 0018 2:06
  */
@@ -21,6 +23,13 @@ public class ImageLoader {
                 .error(R.drawable.ic_avatar)
                 .diskCacheStrategy(DiskCacheStrategy.ALL);
         Glide.with(context).load(url).apply(options).into(target);
+    }
+    public static void loadImage(Context context, File file, ImageView target) {
+        RequestOptions options = new RequestOptions();
+        options.placeholder(R.drawable.ic_avatar)
+                .error(R.drawable.ic_avatar)
+                .diskCacheStrategy(DiskCacheStrategy.ALL);
+        Glide.with(context).load(file).apply(options).into(target);
     }
 
     public static void loadImage(Context context, int resID, ImageView target) {

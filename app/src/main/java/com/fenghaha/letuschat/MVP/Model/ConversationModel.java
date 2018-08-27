@@ -20,24 +20,26 @@ public class ConversationModel {
     private MyMessageHandler messageHandler;
 
     public void getConversationList(BaseContract.BaseCallBack<List<AVIMConversation>> callBack) {
-      AVIMConversationsQuery query =MyApp.getCurrentClient().getConversationsQuery();
-      //query.limit(50);
-      query.findInBackground(new AVIMConversationQueryCallback() {
-          @Override
-          public void done(List<AVIMConversation> list, AVIMException e)  {
-             if (e==null)callBack.onSuccess(list);
-             else{
-                 e.printStackTrace();
-                 callBack.onFailure(e.getMessage());
-             }
-          }
-      });
+        AVIMConversationsQuery query = MyApp.getCurrentClient().getConversationsQuery();
+        query.limit(20);
+        query.setWithLastMessagesRefreshed(true);
+        query.findInBackground(new AVIMConversationQueryCallback() {
+            @Override
+            public void done(List<AVIMConversation> list, AVIMException e) {
+                if (e == null) callBack.onSuccess(list);
+                else {
+                    e.printStackTrace();
+                    callBack.onFailure(e.getMessage());
+                }
+            }
+        });
     }
+
     public void registerMessageHandler(ChatContract.ChatCallBack mCallBack) {
         messageHandler = new MyMessageHandler(new ChatContract.ChatCallBack() {
             @Override
             public void onReceiveMessage(AVIMMessage message) {
-                    mCallBack.onReceiveMessage(message);
+                mCallBack.onReceiveMessage(message);
             }
         });
         AVIMMessageManager.registerMessageHandler(AVIMMessage.class, messageHandler);

@@ -8,8 +8,10 @@ import com.avos.avoscloud.im.v2.AVIMMessage;
 import com.avos.avoscloud.im.v2.AVIMReservedMessageType;
 import com.avos.avoscloud.im.v2.AVIMTypedMessage;
 import com.fenghaha.letuschat.UI.Adapter.Recycler.ViewHolder.ChatBaseViewHolder;
+import com.fenghaha.letuschat.UI.Adapter.Recycler.ViewHolder.ChatImageViewHolder;
 import com.fenghaha.letuschat.UI.Adapter.Recycler.ViewHolder.ChatTextViewHolder;
 import com.fenghaha.letuschat.Utils.MessageUtil;
+import com.fenghaha.letuschat.Utils.SimpleClickListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,6 +35,11 @@ public class MessageRecAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
     private final int ITEM_UNKNOWN = 300;
     protected List<AVIMMessage> mMessageList = new ArrayList<>();
+    private SimpleClickListener listener;
+
+    public MessageRecAdapter(SimpleClickListener listener) {
+        this.listener = listener;
+    }
 
     @NonNull
     @Override
@@ -41,7 +48,11 @@ public class MessageRecAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             case ITEM_LEFT:
             case ITEM_LEFT_TEXT:
                 return new ChatTextViewHolder(parent.getContext(), parent, true);
+            case ITEM_LEFT_IMAGE:
+                return new ChatImageViewHolder(parent.getContext(), parent, true).setClickListener(listener);
             case ITEM_RIGHT:
+            case ITEM_RIGHT_IMAGE:
+                return new ChatImageViewHolder(parent.getContext(), parent, false).setClickListener(listener);
             case ITEM_RIGHT_TEXT:
                 return new ChatTextViewHolder(parent.getContext(), parent, false);
             default:

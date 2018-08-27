@@ -35,14 +35,13 @@ public class ContactsRecAdapter extends RecyclerView.Adapter<ContactsRecAdapter.
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
         View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.item_contact_or_message_layout, viewGroup, false);
-        ViewHolder holder =  new ViewHolder(view);
-        holder.initListener(mContacts.get(i));
-        return holder;
+        return new ViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int i) {
         AVUser user = mContacts.get(i);
+        holder.initListener(user);
         ImageLoader.loadImage(context, (String) user.get("avatarUrl"), holder.mAvatar);
         holder.tvStatus.setText((String)user.get("motto"));
         holder.tvName.setText((String)user.get("nickname"));

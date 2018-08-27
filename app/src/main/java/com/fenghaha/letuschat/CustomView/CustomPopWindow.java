@@ -1,4 +1,4 @@
-package com.fenghaha.letuschat.UI.CustomView;
+package com.fenghaha.letuschat.CustomView;
 
 import android.app.Activity;
 import android.content.Context;
