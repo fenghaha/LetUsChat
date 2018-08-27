@@ -66,7 +66,7 @@ public class StatusRecAdapter extends RecyclerView.Adapter<StatusRecAdapter.View
     class ViewHolder extends RecyclerView.ViewHolder {
         TextView authorName;
         TextView content;
-        ImageView avatar;
+        CircleImageView avatar;
         ImageView image;
         TextView date;
 
