@@ -1,7 +1,7 @@
 # 畅聊
 
 Redrock Finial Exam
-
+[下载点我](https://raw.githubusercontent.com/fenghaha/LetUsChat/master/app/release/app-release.apk)
 ### 功能介绍
 + 一个即时聊天软件
 + 支持手机号注册，登录
