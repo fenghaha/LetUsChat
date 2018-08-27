@@ -23,7 +23,7 @@ public class SplashActivity extends AppCompatActivity {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_splash_ativity);
         if (AVUser.getCurrentUser() == null) {
-            LoginActivity.actionStart(SplashActivity.this);
+            LoginActivity.actionStart(SplashActivity.this,"0","0");
             finish();
         } else {
             ChatUtil.init(this);

@@ -21,13 +21,15 @@ import com.avos.avoscloud.AVUser;
 import com.avos.avoscloud.LogInCallback;
 import com.avos.avoscloud.RequestMobileCodeCallback;
 import com.avos.avoscloud.SaveCallback;
+import com.fenghaha.letuschat.MVP.Contract.BaseContract;
 import com.fenghaha.letuschat.R;
 import com.fenghaha.letuschat.Utils.ChatUtil;
 import com.fenghaha.letuschat.Utils.MyTextUtil;
+import com.fenghaha.letuschat.Utils.TimerCallBack;
+import com.fenghaha.letuschat.Utils.TimerUtil;
 import com.fenghaha.letuschat.Utils.ToastUtil;
 
-import java.util.Timer;
-import java.util.TimerTask;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -158,45 +160,56 @@ public class RegisterActivity extends BaseActivity {
     }
 
     private void getSmsCode(String phone) {
-        if (!checkPhoneNumber(phone)) return;
-        AVOSCloud.requestSMSCodeInBackground(phone, new RequestMobileCodeCallback() {
-            @Override
-            public void done(AVException e) {
-                if (e == null) {
-                    smsLayout.setVisibility(View.GONE);
-                    okLayout.setVisibility(View.VISIBLE);
-                    hint1.setText("请输入验证码");
-                    hint2.setText("验证码已经由短信发送到手机号" + phone);
-                    btNext.setText("下一步");
-                    btNext.setOnClickListener(v -> verifySmsCode(phone));
-                    timer();
-                } else ToastUtil.makeToast(e.getMessage());
 
+        if (!checkPhoneNumber(phone)) return;
+        ChatUtil.hasRegisted(phone, new BaseContract.BaseCallBack<List<AVUser>>() {
+            @Override
+            public void onComplete() {
+                AVOSCloud.requestSMSCodeInBackground(phone, new RequestMobileCodeCallback() {
+                    @Override
+                    public void done(AVException e) {
+                        if (e == null) {
+                            smsLayout.setVisibility(View.GONE);
+                            okLayout.setVisibility(View.VISIBLE);
+                            hint1.setText("请输入验证码");
+                            hint2.setText("验证码已经由短信发送到手机号" + phone);
+                            btNext.setText("下一步");
+                            btNext.setOnClickListener(v -> verifySmsCode(phone));
+                            TimerUtil.timer(new TimerCallBack() {
+                                @Override
+                                public void onTimerStarted() {
+                                    tvCodeHint.setClickable(false);
+                                }
+
+                                @Override
+                                public void onTimeChanged(int timeNow) {
+                                    tvCodeHint.setText(String.valueOf(timeNow) + "秒后重新获取");
+                                }
+
+                                @Override
+                                public void onFinish() {
+
+                                    tvCodeHint.setClickable(true);
+                                    tvCodeHint.setText("重新获取");
+                                    tvCodeHint.setOnClickListener(v -> verifySmsCode(phone));
+
+                                }
+                            }, 60);
+                        } else ToastUtil.makeToast(e.getMessage());
+
+                    }
+
+
+                });
             }
 
-            private void timer() {
-                tvCodeHint.setClickable(false);
-                Timer timer = new Timer();
-                timer.schedule(new TimerTask() {
-                    int p = 60;
-
-                    @Override
-                    public void run() {
-                        p--;
-                        if (p == 0) timer.cancel();
-                        runOnUiThread(() -> {
-                            tvCodeHint.setText(String.valueOf(p) + "秒后重新获取");
-                            if (p == 0) {
-                                tvCodeHint.setClickable(true);
-                                tvCodeHint.setText("重新获取");
-                                tvCodeHint.setOnClickListener(v -> verifySmsCode(phone));
-                            }
-                        });
-                    }
-                }, 0, 1000);
-                // 发送失败可以查看 e 里面提供的信息
+            @Override
+            public void onFailure(String msg) {
+                super.onFailure(msg);
+                ToastUtil.makeToast(msg);
             }
         });
+
     }
 
 
@@ -221,18 +234,18 @@ public class RegisterActivity extends BaseActivity {
         user.put("nickname", etNickname.getText().toString());
         String account = MyTextUtil.newRandomAccount();
         user.setUsername(account);
+        user.setPassword(etPsw.getText().toString());
         user.saveInBackground(new SaveCallback() {
             @Override
             public void done(AVException e) {
-                okLayout.setVisibility(View.GONE);
+                nickLayout.setVisibility(View.GONE);
                 hint1.setText("注册成功！");
+                hint2.setTextSize(18);
                 hint2.setText("你的账号是：");
                 tvShowUsername.setVisibility(View.VISIBLE);
                 tvShowUsername.setText(account);
                 btNext.setText("登陆");
-                btNext.setOnClickListener(v -> {
-                    ChatUtil.init(RegisterActivity.this);
-                });
+                btNext.setOnClickListener(v -> LoginActivity.actionStart(RegisterActivity.this, account, etPsw.getText().toString()));
 
             }
         });

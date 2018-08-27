@@ -7,6 +7,7 @@ import android.animation.ObjectAnimator;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -64,10 +65,13 @@ public class LoginActivity extends BaseActivity implements LoginContract.LoginVi
 
     @Override
     protected void initViews() {
-        tvRegister.setOnClickListener(v -> {
-            RegisterActivity.actionStart(this);
-            finish();
-        });
+        String username = getIntent().getStringExtra("username");
+        String password = getIntent().getStringExtra("password");
+        if (!username.equals("0") && !password.equals("0")) {
+            etUsrName.setText(username);
+            etUsrPsw.setText(password);
+        }
+        tvRegister.setOnClickListener(v -> RegisterActivity.actionStart(this));
         mBtnLogin.setOnClickListener(v -> {
             String usn = etUsrName.getText().toString();
             String psw = etUsrPsw.getText().toString();
@@ -105,6 +109,7 @@ public class LoginActivity extends BaseActivity implements LoginContract.LoginVi
                 layoutProgress.setVisibility(View.VISIBLE);
             }
         });
+        new Handler().postDelayed(() -> showToast("登录成功！"), 500);
     }
 
     @Override
@@ -114,7 +119,6 @@ public class LoginActivity extends BaseActivity implements LoginContract.LoginVi
         etUsrPsw.setVisibility(View.INVISIBLE);
         inputAnimator(layoutProgress.getMeasuredWidth(), layoutProgress.getMeasuredHeight());
         progressBar.setProgress(100, false);
-        showToast("登录成功！");
         MainActivity.actionStart(this);
         finish();
     }
@@ -125,7 +129,8 @@ public class LoginActivity extends BaseActivity implements LoginContract.LoginVi
     }
 
 
-    public static void actionStart(Context context) {
-        context.startActivity(new Intent(context, LoginActivity.class));
+    public static void actionStart(Context context, String usm, String psw) {
+        context.startActivity(new Intent(context, LoginActivity.class).putExtra("username", usm).putExtra("password", psw));
+
     }
 }

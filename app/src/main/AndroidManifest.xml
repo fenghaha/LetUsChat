@@ -68,7 +68,8 @@
         <activity
             android:name=".UI.Activity.ShowPhotoActivity"
             android:launchMode="singleTop" />
-        <activity android:name=".UI.Activity.RegisterActivity">
+        <activity android:name=".UI.Activity.RegisterActivity"></activity>
+        <activity android:name=".UI.Activity.PublishActivity">
 
         </activity>
     </application>

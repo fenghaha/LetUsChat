@@ -13,7 +13,6 @@ import com.avos.avoscloud.im.v2.callback.AVIMConversationQueryCallback;
 import com.fenghaha.letuschat.MVP.Contract.BaseContract;
 import com.fenghaha.letuschat.UI.Activity.LoginActivity;
 import com.fenghaha.letuschat.UI.Activity.MainActivity;
-import com.fenghaha.letuschat.UI.Activity.SplashActivity;
 
 import java.util.HashMap;
 import java.util.List;
@@ -22,6 +21,19 @@ import java.util.List;
  * Created by FengHaHa on2018/8/26 0026 2:30
  */
 public class ChatUtil {
+    public static void hasRegisted(String phone, BaseContract.BaseCallBack<List<AVUser>> callBack) {
+        AVQuery<AVUser> query = new AVQuery<>("_User");
+        query.whereEqualTo("mobilePhoneNumber", phone);
+        query.findInBackground(new FindCallback<AVUser>() {
+            @Override
+            public void done(List<AVUser> list, AVException e) {
+                if (list.size() >  0){
+                    callBack.onFailure("账号已经注册！");
+                }else callBack.onComplete();
+            }
+        });
+    }
+
     public static void getContactsList(BaseContract.BaseCallBack callBack) {
         try {
             AVQuery<AVUser> friendsQuery = AVUser.getCurrentUser().followerQuery(AVUser.class);
@@ -54,38 +66,40 @@ public class ChatUtil {
         query.findInBackground(new FindCallback<AVUser>() {
             @Override
             public void done(List<AVUser> list, AVException e) {
-                if (e == null ){
-                    if ( list.size() > 0)
-                    callBack.onSuccess(list.get(0));
+                if (e == null) {
+                    if (list.size() > 0)
+                        callBack.onSuccess(list.get(0));
                     else callBack.onFailure("没有找到这个人哦！");
-                }
-                else callBack.onFailure(e.getMessage());
+                } else callBack.onFailure(e.getMessage());
             }
         });
     }
-    public static void getConversation(String conID, BaseContract.BaseCallBack<AVIMConversation> callBack){
+
+    public static void getConversation(String conID, BaseContract.BaseCallBack<AVIMConversation> callBack) {
         AVIMConversationsQuery query = MyApp.getCurrentClient().getConversationsQuery();
-        query.whereEqualTo("objectId",conID);
-        query.findInBackground(new AVIMConversationQueryCallback(){
+        query.whereEqualTo("objectId", conID);
+        query.findInBackground(new AVIMConversationQueryCallback() {
             @Override
-            public void done(List<AVIMConversation> convs, AVIMException e){
-                if(e==null){
-                    if(convs!=null && !convs.isEmpty()){
-                       callBack.onSuccess(convs.get(0));
+            public void done(List<AVIMConversation> convs, AVIMException e) {
+                if (e == null) {
+                    if (convs != null && !convs.isEmpty()) {
+                        callBack.onSuccess(convs.get(0));
                     }
-                }else callBack.onFailure(e.getMessage());
+                } else callBack.onFailure(e.getMessage());
             }
         });
     }
-    public static void init(Activity activity){
+
+    public static void init(Activity activity) {
         MyApp.openIMClient();
         ChatUtil.getContactsList(new BaseContract.BaseCallBack() {
             @Override
             public void onFailure(String msg) {
                 ToastUtil.makeToast(msg);
-                LoginActivity.actionStart(activity);
+                LoginActivity.actionStart(activity,"0","0");
                 activity.finish();
             }
+
             @Override
             public void onComplete() {
                 MainActivity.actionStart(activity);

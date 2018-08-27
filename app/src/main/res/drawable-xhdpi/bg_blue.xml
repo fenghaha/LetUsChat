@@ -3,13 +3,10 @@
     xmlns:android="http://schemas.android.com/apk/res/android">
     <!-- 内部颜色 -->
     <solid
-        android:color="#3AB8FB" />
-    <!-- 边缘线条颜色 -->
-    <stroke
-        android:width="1px"
-        android:color="#3AB8FB" />
+        android:color="#FF12B6F4" />
+
     <!-- 圆角的幅度 -->
     <corners
-       android:radius="5dp"/>
+        android:radius="5dp"/>
 
 </shape>

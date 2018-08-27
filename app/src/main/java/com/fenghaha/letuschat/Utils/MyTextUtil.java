@@ -23,12 +23,7 @@ public class MyTextUtil {
 
     public static boolean isLegal(String text, int minLength, int maxLength) {
         //为空
-        if (TextUtils.isEmpty(text) || isAllSpace(text)) {
-            return false;
-        } else if (text.length() >= minLength && text.length() <= maxLength) {
-            return true;
-        }
-        return false;
+        return !TextUtils.isEmpty(text) && !isAllSpace(text) && text.length() >= minLength && text.length() <= maxLength;
     }
 
     public static boolean isEmpty(String... text) {

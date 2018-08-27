@@ -82,11 +82,13 @@ public class MainActivity extends BaseActivity {
             switch (menuItem.getItemId()) {
                 case R.id.navigation_message:
                     mTitle.setText("消息");
+                    mMore.setOnClickListener(v -> showMoreWindow());
                     switchFragment(0);
                     mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED);
                     return true;
                 case R.id.navigation_contacts:
                     mTitle.setText("联系人");
+                    mMore.setOnClickListener(v -> showMoreWindow());
                     switchFragment(1);
                     return true;
                 case R.id.navigation_community:
@@ -162,7 +164,7 @@ public class MainActivity extends BaseActivity {
     private void changeAccount() {
         AVUser.logOut();
         finish();
-        LoginActivity.actionStart(this);
+        LoginActivity.actionStart(this,"0","0");
     }
 
     public static void actionStart(Context context) {
