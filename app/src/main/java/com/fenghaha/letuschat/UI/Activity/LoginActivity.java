@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
+import android.view.WindowManager;
 import android.view.animation.AccelerateDecelerateInterpolator;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -53,7 +54,8 @@ public class LoginActivity extends BaseActivity implements LoginContract.LoginVi
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        requestWindowFeature(Window.FEATURE_NO_TITLE);
+        requestWindowFeature(Window.FEATURE_NO_TITLE);// 隐藏标题
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);// 设置全屏
         setContentView(R.layout.activity_login);
         ButterKnife.bind(this);
         initViews();
@@ -62,7 +64,10 @@ public class LoginActivity extends BaseActivity implements LoginContract.LoginVi
 
     @Override
     protected void initViews() {
-
+        tvRegister.setOnClickListener(v -> {
+            RegisterActivity.actionStart(this);
+            finish();
+        });
         mBtnLogin.setOnClickListener(v -> {
             String usn = etUsrName.getText().toString();
             String psw = etUsrPsw.getText().toString();

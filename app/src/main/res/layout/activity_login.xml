@@ -122,9 +122,9 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/main_btn"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="25dp"
+        android:layout_marginTop="60dp"
         android:text="还没账号? 点我注册"
-        android:textColor="#5090ff"
+        android:textColor="#ffffff"
         android:textSize="15sp" />
 </RelativeLayout>
 

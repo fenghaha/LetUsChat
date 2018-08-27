@@ -1,5 +1,7 @@
 package com.fenghaha.letuschat.UI.Activity;
 
+import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.text.Editable;
@@ -234,5 +236,9 @@ public class RegisterActivity extends BaseActivity {
 
             }
         });
+    }
+
+    public static void actionStart(Context context) {
+        context.startActivity(new Intent(context, RegisterActivity.class));
     }
 }
