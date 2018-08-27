@@ -20,4 +20,15 @@ Redrock Finial Exam
 + 可能还有部分未发现的bug
 
 ### 部分功能截图
-+ ![]()
+#### 登录
+![](images/登录.png)
+#### 注册
+![](images/注册.png)
+#### 加好友
+![](images/添加好友.png)
+#### 聊天
+![](images/聊天.png)
+#### 动态
+![](images/动态.png)
+#### 编辑资料
+![](images/编辑资料.png)
