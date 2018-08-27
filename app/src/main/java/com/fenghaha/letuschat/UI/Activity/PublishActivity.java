@@ -26,8 +26,6 @@ import com.luck.picture.lib.entity.LocalMedia;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.util.HashMap;
-import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -50,6 +48,8 @@ public class PublishActivity extends BaseActivity {
     @BindView(R.id.iv_send)
     ImageView ivSend;
     String path;
+    @BindView(R.id.padding_view)
+    View paddingView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,6 +61,7 @@ public class PublishActivity extends BaseActivity {
 
     @Override
     protected void initViews() {
+
         ivBack.setOnClickListener(v -> finish());
         answerImageAll.setOnClickListener(v -> openAlbum());
         cancelImage.setOnClickListener(v -> {
@@ -118,7 +119,7 @@ public class PublishActivity extends BaseActivity {
 //                        });
 //                        String url = file.getUrl();
                         AVStatus status = new AVStatus();
-                        status.put("name",AVUser.getCurrentUser().get("nickname"));
+                        status.put("name", AVUser.getCurrentUser().get("nickname"));
                         status.put("avatar", AVUser.getCurrentUser().get("avatarUrl"));
                         status.put("image", url);
                         status.put("text", etContent.getText().toString());
@@ -130,12 +131,6 @@ public class PublishActivity extends BaseActivity {
 //                                finish();
 //                            }
 //                        });
-
-
-
-
-
-
 
 
                         AVStatus.sendStatusToFollowersInBackgroud(status, new SaveCallback() {
@@ -185,7 +180,7 @@ public class PublishActivity extends BaseActivity {
         ImageLoader.loadImage(this, new File(path), ivImage);
     }
 
-    public static void actionStart(Context context){
-        context.startActivity(new Intent(context,PublishActivity.class));
+    public static void actionStart(Context context) {
+        context.startActivity(new Intent(context, PublishActivity.class));
     }
 }

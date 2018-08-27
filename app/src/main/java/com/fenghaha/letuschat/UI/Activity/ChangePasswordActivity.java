@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -36,6 +37,8 @@ public class ChangePasswordActivity extends BaseActivity {
     EditText etNewPsw;
     @BindView(R.id.main_btn)
     TextView mainBtn;
+    @BindView(R.id.padding_view)
+    View paddingView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,6 +59,7 @@ public class ChangePasswordActivity extends BaseActivity {
 
     @Override
     protected void initViews() {
+
         mainBtn.setClickable(false);
         ivBack.setOnClickListener(v -> finish());
         tvCodeHint.setOnClickListener(v -> {
@@ -113,22 +117,22 @@ public class ChangePasswordActivity extends BaseActivity {
                         }
                     }, 60);
                     ToastUtil.makeToast("验证码已发送");
-                }else   ToastUtil.makeToast(e.getMessage());
+                } else ToastUtil.makeToast(e.getMessage());
             }
         });
     }
 
     void resetPassword(String code, String password) {
         if (!MyTextUtil.isLegal(password, 8, 16) ||
-                !MyTextUtil.isLegal(code, 6, 6)){
-           return;
+                !MyTextUtil.isLegal(code, 6, 6)) {
+            return;
         }
         AVUser.resetPasswordBySmsCodeInBackground(code, password, new UpdatePasswordCallback() {
             @Override
             public void done(AVException e) {
                 if (e == null) {
                     ToastUtil.makeToast("修改成功！");
-                    LoginActivity.actionStart(ChangePasswordActivity.this,AVUser.getCurrentUser().getUsername(),password);
+                    LoginActivity.actionStart(ChangePasswordActivity.this, AVUser.getCurrentUser().getUsername(), password);
                     finish();
                 } else {
                     e.printStackTrace();

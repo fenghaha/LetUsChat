@@ -4,9 +4,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -52,6 +52,8 @@ public class UserInfoEditActivity extends BaseActivity {
     TextView tvFinish;
 
     String avatarPath = null;
+    @BindView(R.id.padding_view)
+    View paddingView;
 
 
     @Override
@@ -149,7 +151,8 @@ public class UserInfoEditActivity extends BaseActivity {
 
     @Override
     protected void initViews() {
-        ImageLoader.loadImage(this, (String) AVUser.getCurrentUser().get("avatarUrl"),ivAvatar);
+
+        ImageLoader.loadImage(this, (String) AVUser.getCurrentUser().get("avatarUrl"), ivAvatar);
         ivBack.setOnClickListener(v -> finish());
         TextWatcher watcher = new TextWatcher() {
             @Override

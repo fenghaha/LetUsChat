@@ -6,7 +6,10 @@
     android:background="#fff"
     android:orientation="vertical"
     tools:ignore="HardcodedText">
-
+    <View
+        android:id="@+id/padding_view"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"/>
     <RelativeLayout
         android:id="@+id/toolbar_layout"
         android:layout_width="match_parent"

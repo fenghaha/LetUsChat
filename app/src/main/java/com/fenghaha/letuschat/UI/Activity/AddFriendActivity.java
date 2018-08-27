@@ -11,9 +11,9 @@ import android.widget.ImageView;
 import com.avos.avoscloud.AVUser;
 import com.fenghaha.letuschat.MVP.Contract.BaseContract;
 import com.fenghaha.letuschat.R;
+import com.fenghaha.letuschat.Utils.ChatUtil;
 import com.fenghaha.letuschat.Utils.MyApp;
 import com.fenghaha.letuschat.Utils.MyTextUtil;
-import com.fenghaha.letuschat.Utils.ChatUtil;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -28,6 +28,8 @@ public class AddFriendActivity extends BaseActivity implements View.OnClickListe
     Button btFindPerson;
     @BindView(R.id.bt_find_group)
     Button btFindGroup;
+    @BindView(R.id.padding_view)
+    View paddingView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +45,7 @@ public class AddFriendActivity extends BaseActivity implements View.OnClickListe
 
     @Override
     protected void initViews() {
+
         mBack.setOnClickListener(this);
         btFindPerson.setOnClickListener(this);
         btFindGroup.setOnClickListener(this);
@@ -50,7 +53,7 @@ public class AddFriendActivity extends BaseActivity implements View.OnClickListe
 
     @Override
     public void onClick(View view) {
-        switch (view.getId()){
+        switch (view.getId()) {
             case R.id.iv_back:
                 finish();
                 break;
@@ -63,14 +66,14 @@ public class AddFriendActivity extends BaseActivity implements View.OnClickListe
     }
 
     private void findPerson() {
-        if (MyTextUtil.isEmpty(inputTextNumber.getText().toString())){
+        if (MyTextUtil.isEmpty(inputTextNumber.getText().toString())) {
             inputTextNumber.setError("输入不能为空！");
-        }else {
+        } else {
             ChatUtil.findUser(inputTextNumber.getText().toString(), new BaseContract.BaseCallBack<AVUser>() {
                 @Override
                 public void onSuccess(AVUser data) {
-                    MyApp.getAvUserHashMap().put(data.getObjectId(),data);
-                    UserDetailActivity.actionStart(AddFriendActivity.this,data.getObjectId());
+                    MyApp.getAvUserHashMap().put(data.getObjectId(), data);
+                    UserDetailActivity.actionStart(AddFriendActivity.this, data.getObjectId());
                 }
             });
         }

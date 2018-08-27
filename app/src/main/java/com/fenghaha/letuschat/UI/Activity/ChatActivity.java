@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -50,6 +51,8 @@ public class ChatActivity extends BaseActivity implements ChatContract.ChatView 
     ImageView ivVideo;
     @BindView(R.id.iv_camera)
     ImageView ivCamera;
+    @BindView(R.id.padding_view)
+    View paddingView;
     private MessageRecAdapter mAdapter;
     private ChatPresenter mPresenter;
 
@@ -73,10 +76,11 @@ public class ChatActivity extends BaseActivity implements ChatContract.ChatView 
 
     @Override
     protected void initViews() {
+
         mTitle.setText((String) MyApp.getAvUserHashMap().get(getIntent().getStringExtra("id")).get("nickname"));
         mAdapter = new MessageRecAdapter(message -> {
-            if (message instanceof AVIMImageMessage){
-                ShowPhotoActivity.actionStart(this,((AVIMImageMessage) message).getFileUrl());
+            if (message instanceof AVIMImageMessage) {
+                ShowPhotoActivity.actionStart(this, ((AVIMImageMessage) message).getFileUrl());
             }
 
         });

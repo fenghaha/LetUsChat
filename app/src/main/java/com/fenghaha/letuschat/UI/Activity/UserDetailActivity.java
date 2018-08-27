@@ -3,6 +3,7 @@ package com.fenghaha.letuschat.UI.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -40,6 +41,8 @@ public class UserDetailActivity extends BaseActivity {
     ImageView mBack;
     @BindView(R.id.layout_goto)
     RelativeLayout mGoto;
+    @BindView(R.id.padding_view)
+    View paddingView;
 
     private boolean isSelf;
     private boolean isFriend;

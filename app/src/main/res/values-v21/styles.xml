@@ -1,1 +1,12 @@
-<resources></resources>
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="AppTheme" parent="AppTheme.Base">
+        <!--透明状态栏-->
+        <!-- <item name="android:windowTranslucentStatus">true</item>-->
+        <item name="colorAccent">@color/colorBlue</item>
+        <item name="android:statusBarColor">@color/colorBlue</item>
+        <!--使状态栏，导航栏可绘制-->
+        <item name="android:windowDrawsSystemBarBackgrounds">true</item>
+    </style>
+</resources>
