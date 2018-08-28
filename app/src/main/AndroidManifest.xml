@@ -37,21 +37,24 @@
         <activity
             android:name=".UI.Activity.MainActivity"
             android:launchMode="singleTop"
+            android:screenOrientation="portrait"
 
-           />
-        <activity
-            android:name=".UI.Activity.LoginActivity"
-            android:launchMode="singleTop" />
-        <activity
-            android:name=".UI.Activity.ChatActivity"
-            android:launchMode="singleTop"
             />
         <activity
-            android:name=".UI.Activity.ChangePasswordActivity"
+            android:name=".UI.Activity.LoginActivity"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".UI.Activity.ChatActivity"
             android:launchMode="singleTop" />
         <activity
+            android:name=".UI.Activity.ChangePasswordActivity"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait" />
+        <activity
             android:name=".UI.Activity.SplashActivity"
-            android:launchMode="singleTop">
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -60,18 +63,26 @@
         </activity>
         <activity
             android:name=".UI.Activity.AddFriendActivity"
-            android:launchMode="singleTop" />
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".UI.Activity.UserDetailActivity"
-            android:launchMode="singleTop" />
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".UI.Activity.UserInfoEditActivity"
-            android:launchMode="singleTop" />
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".UI.Activity.ShowPhotoActivity"
-            android:launchMode="singleTop" />
-        <activity android:name=".UI.Activity.RegisterActivity"></activity>
-        <activity android:name=".UI.Activity.PublishActivity">
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".UI.Activity.RegisterActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".UI.Activity.PublishActivity"
+            android:screenOrientation="portrait">
 
         </activity>
     </application>

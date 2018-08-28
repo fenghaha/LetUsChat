@@ -79,6 +79,7 @@ public class RegisterActivity extends BaseActivity {
         hint2.setText("目前仅支持中国大陆的手机号");
         smsLayout.setVisibility(View.VISIBLE);
         ivBack.setOnClickListener(v -> finish());
+        disableButton();
         etPhone.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -89,60 +90,9 @@ public class RegisterActivity extends BaseActivity {
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
 
                 if (checkPhoneNumber(charSequence.toString())) {
-                    btNext.setBackgroundResource(R.drawable.bg_blue);
-                    btNext.setTextColor(Color.WHITE);
-                    btNext.setClickable(true);
+                enableButton();
                 } else {
-                    btNext.setBackgroundResource(R.drawable.bg_gray);
-                    btNext.setTextColor(Color.parseColor("#FFBABABA"));
-                    btNext.setClickable(false);
-                }
-            }
-
-            @Override
-            public void afterTextChanged(Editable editable) {
-
-            }
-        });
-        verifyCode.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                if (MyTextUtil.isLegal(verifyCode.getText().toString(), 6, 6)) {
-                    btNext.setBackgroundResource(R.drawable.bg_blue);
-                    btNext.setTextColor(Color.WHITE);
-                    btNext.setClickable(true);
-                } else {
-                    btNext.setBackgroundResource(R.drawable.bg_gray);
-                    btNext.setTextColor(Color.parseColor("#FFBABABA"));
-                    btNext.setClickable(false);
-                }
-            }
-
-            @Override
-            public void afterTextChanged(Editable editable) {
-
-            }
-        });
-        etPsw.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-            }
-
-            @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                if (MyTextUtil.isLegal(etPsw.getText().toString(), 8, 16) && !MyTextUtil.isEmpty(etNickname.getText().toString())) {
-                    btNext.setBackgroundResource(R.drawable.bg_blue);
-                    btNext.setTextColor(Color.WHITE);
-                    btNext.setClickable(true);
-                } else {
-                    btNext.setBackgroundResource(R.drawable.bg_gray);
-                    btNext.setTextColor(Color.parseColor("#FFBABABA"));
-                    btNext.setClickable(false);
+                    disableButton();
                 }
             }
 
@@ -160,7 +110,6 @@ public class RegisterActivity extends BaseActivity {
     }
 
     private void getSmsCode(String phone) {
-
         if (!checkPhoneNumber(phone)) return;
         ChatUtil.hasRegisted(phone, new BaseContract.BaseCallBack<List<AVUser>>() {
             @Override
@@ -169,8 +118,29 @@ public class RegisterActivity extends BaseActivity {
                     @Override
                     public void done(AVException e) {
                         if (e == null) {
+                            disableButton();
                             smsLayout.setVisibility(View.GONE);
                             okLayout.setVisibility(View.VISIBLE);
+                            verifyCode.addTextChangedListener(new TextWatcher() {
+                                @Override
+                                public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+                                }
+
+                                @Override
+                                public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                                    if (MyTextUtil.isLegal(verifyCode.getText().toString(), 6, 6)) {
+                                       enableButton();
+                                    } else {
+                                        disableButton();
+                                    }
+                                }
+
+                                @Override
+                                public void afterTextChanged(Editable editable) {
+
+                                }
+                            });
                             hint1.setText("请输入验证码");
                             hint2.setText("验证码已经由短信发送到手机号" + phone);
                             btNext.setText("下一步");
@@ -212,6 +182,17 @@ public class RegisterActivity extends BaseActivity {
 
     }
 
+    private void enableButton() {
+        btNext.setBackgroundResource(R.drawable.bg_blue);
+        btNext.setTextColor(Color.WHITE);
+        btNext.setEnabled(true);
+    }
+
+    private void disableButton() {
+        btNext.setBackgroundResource(R.drawable.bg_gray);
+        btNext.setTextColor(Color.parseColor("#FFBABABA"));
+        btNext.setEnabled(false);
+    }
 
     private void verifySmsCode(String phone) {
 
@@ -219,10 +200,30 @@ public class RegisterActivity extends BaseActivity {
             AVUser.signUpOrLoginByMobilePhoneInBackground(phone, verifyCode.getText().toString(), new LogInCallback<AVUser>() {
                 @Override
                 public void done(AVUser user, AVException e) {
+                    disableButton();
                     okLayout.setVisibility(View.GONE);
                     nickLayout.setVisibility(View.VISIBLE);
                     hint1.setText("设置昵称与密码");
                     hint2.setText(R.string.psw_hint);
+                    etPsw.addTextChangedListener(new TextWatcher() {
+                        @Override
+                        public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                        }
+
+                        @Override
+                        public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                            if (MyTextUtil.isLegal(etPsw.getText().toString(), 8, 16) && !MyTextUtil.isEmpty(etNickname.getText().toString())) {
+                               enableButton();
+                            } else {
+                                disableButton();
+                            }
+                        }
+
+                        @Override
+                        public void afterTextChanged(Editable editable) {
+
+                        }
+                    });
                     btNext.setText("注册");
                     btNext.setOnClickListener(v -> setNicknameAndPassword(user));
                 }
