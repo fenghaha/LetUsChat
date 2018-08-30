@@ -7,7 +7,7 @@ Redrock Finial Exam
 + 支持手机号注册，登录
 + 实现基本的加好友聊天功能
 + 可发文字，图片消息
-+ 一个简单的动态发布平台https://www.bilibili.com/
++ 一个简单的动态发布平台
 
 ### 使用了
 + 后端使用leancloud
